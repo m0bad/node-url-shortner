@@ -10,21 +10,21 @@ const urlSchema = mongoose.Schema({
   },
   ios: {
     primary: {
-      text: String,
+      type: String,
       required: true
     },
     fallback: {
-      text: String,
+      type: String,
       required: true
     }
   },
   android: {
     primary: {
-      text: String,
+      type: String,
       required: true
     },
     fallback: {
-      text: String,
+      type: String,
       required: true
     }
   },
