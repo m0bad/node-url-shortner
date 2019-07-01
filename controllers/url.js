@@ -66,7 +66,8 @@ exports.createShortlink = async (req, res, next) => {
           primary: ios_primary,
           fallback: ios_fallback
         },
-        web
+        web,
+        user
       });
       user.shortlinks.push(url);
       await user.save();
@@ -141,6 +142,16 @@ exports.redirectOriginal = async (req, res, next) => {
       default:
         return res.redirect(url.web);
     }
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.deleteShortLink = async (req, res, next) => {
+  try {
+    let shortlink = await db.Url.findOne({ slug: req.params.slug });
+    await shortlink.remove();
+    return res.status(200).json(shortlink);
   } catch (err) {
     return next(err);
   }
