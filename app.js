@@ -8,7 +8,7 @@ const urlRoutes = require("./routes/url");
 const indexRoute = require("./routes");
 const errorHandler = require("./controllers/errorHandler");
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 app.use(bodyParser.json());
 app.use(cors());
