@@ -16,7 +16,13 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  shortlinks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Url"
+    }
+  ]
 });
 
 userSchema.plugin(uniqueValidator);

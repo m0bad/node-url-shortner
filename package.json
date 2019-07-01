@@ -28,6 +28,6 @@
     "mongoose-immutable": "0.0.2",
     "mongoose-unique-validator": "^2.0.3",
     "shortid": "^2.2.14",
-    "valid-url": "^1.0.9"
+    "validator": "^11.0.0"
   }
 }

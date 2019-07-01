@@ -2,17 +2,21 @@ require("dotenv").config(); //process.env.____
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const device = require("express-device");
 const authRoutes = require("./routes/auth");
-// const urlRoutes = require("./routes/url");
+const urlRoutes = require("./routes/url");
+const indexRoute = require("./routes");
 const errorHandler = require("./controllers/errorHandler");
 const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(device.capture());
 
 app.use("/auth", authRoutes);
-// app.use("/shortlinks", urlRoutes);
+app.use("/shortlinks/:username", urlRoutes);
+app.use("/:slug", indexRoute);
 
 app.use((req, res, next) => {
   let err = new Error("Page Not Found");

@@ -3,6 +3,8 @@ const router = express.Router();
 
 const { signin, signup } = require("../controllers/auth");
 
+//prefix: /auth
+
 router.post("/signin", signin);
 router.post("/signup", signup);
 
