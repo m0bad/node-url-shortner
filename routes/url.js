@@ -6,14 +6,15 @@ const {
   updateShortLink,
   redirectOriginal
 } = require("../controllers/url");
+const { isLoggedIn, hasLinkOwnership } = require("../middlewares");
 
 //prefix: /shortlinks/:userId
 
 //list all user shortlinks
-router.get("/", listShortlinks);
+router.get("/", isLoggedIn, listShortlinks);
 // create new shortlink
-router.post("/", createShortlink);
+router.post("/", isLoggedIn, createShortlink);
 // update a shortlink
-router.put("/:slug", updateShortLink);
+router.put("/:slug", isLoggedIn, hasLinkOwnership, updateShortLink);
 
 module.exports = router;

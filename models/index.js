@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 mongoose.set("debug", true);
 mongoose.connect(
-  "mongodb://localhost/urlShortener",
+  process.env.DB_CONNECTION_URL,
   {
     KeepAlive: true,
     useNewUrlParser: true

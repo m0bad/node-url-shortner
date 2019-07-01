@@ -96,18 +96,27 @@ exports.updateShortLink = async (req, res, next) => {
     } = req.body;
     let url = await db.Url.findOne({ slug: req.params.slug });
     const query = { slug: req.params.slug };
-    await db.Url.findOneAndUpdate(query, {
-      web: web || url.web,
-      ios: {
-        primary: ios_primary || url.ios.primary,
-        fallback: ios_fallback || url.ios.fallback
+    await db.Url.findOneAndUpdate(
+      query,
+      {
+        web: web || url.web,
+        ios: {
+          primary: ios_primary || url.ios.primary,
+          fallback: ios_fallback || url.ios.fallback
+        },
+        android: {
+          primary: android_primary || url.android.primary,
+          fallback: android_fallback || url.android.fallback
+        }
       },
-      android: {
-        primary: android_primary || url.android.primary,
-        fallback: android_fallback || url.android.fallback
+      { new: true }, // to return the modified document rather than the original
+      (err, updatedUrl) => {
+        if (err) {
+          return next(err);
+        }
+        return res.status(200).json(updatedUrl);
       }
-    });
-    await url.save();
+    );
   } catch (err) {
     return next(err);
   }
